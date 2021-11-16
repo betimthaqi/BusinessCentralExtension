@@ -1,0 +1,32 @@
+{
+  "id": "6bf897e8-50df-435b-99d5-be592871b3b7",
+  "name": "ALProject1",
+  "publisher": "Default publisher",
+  "version": "1.0.0.0",
+  "brief": "This is my BC Extension",
+  "description": "It will be so good",
+  "privacyStatement": "https://mycompany.com/privacy",
+  "EULA": "https://mycompany.com/eula",
+  "help": "https://mycompany.com/help",
+  "url": "https://mycompany.com",
+  "logo": "images\\BCLogo.png",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "18.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "8.0",
+  "features": [
+    "TranslationFile"
+  ]
+}
