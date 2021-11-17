@@ -1,4 +1,4 @@
-table 63702 "BT Bonus Line"
+table 50101 "BT Bonus Line"
 {
     DataClassification = CustomerContent;
     Caption = 'BT Bonus Line';

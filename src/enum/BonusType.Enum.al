@@ -1,4 +1,4 @@
-enum 63701 "BT Bonus Type"
+enum 50100 "BT Bonus Type"
 {
     Extensible = true;
 

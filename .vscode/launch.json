@@ -1,5 +1,5 @@
 {
-    "version": "0.2.0",
+    "version": "0.2.1",
     "configurations": [
         {
             "name": "Test Server",
@@ -10,7 +10,7 @@
             "serverInstance": "BC180",
             "authentication": "Windows",
             "port": 7049,
-            "startupObjectId": 50101,
+            "startupObjectId": 50100,
             "startupObjectType": "Page",
             "breakOnError": true,
             "launchBrowser": true,

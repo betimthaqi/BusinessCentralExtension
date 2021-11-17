@@ -1,4 +1,4 @@
-page 63700 "BT Bonus Setup"
+page 50100 "BT Bonus Setup"
 {
     PageType = Card;
     ApplicationArea = All;

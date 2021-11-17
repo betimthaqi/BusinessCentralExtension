@@ -1,7 +1,9 @@
-table 63701 "BT Bonus Header"
+table 50100 "BT Bonus Header"
 {
     DataClassification = CustomerContent;
     Caption = 'Bonus Header';
+    DrillDownPageId = "BT Bonus List";
+    LookupPageId = "BT Bonus List";
 
     fields
     {
@@ -9,6 +11,15 @@ table 63701 "BT Bonus Header"
         {
             DataClassification = CustomerContent;
             Caption = 'No.';
+
+            trigger OnValidate()
+            begin
+                if "No." <> xRec."No." then begin
+                    BonusSetup.Get();
+                    NoSeriesMgmt.TestManual(BonusSetup."Bonus Nos.");
+                    "No. Series" := '';
+                end;
+            end;
 
         }
 
@@ -36,6 +47,13 @@ table 63701 "BT Bonus Header"
             DataClassification = CustomerContent;
             Caption = 'Status';
         }
+
+        field(6; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -45,6 +63,20 @@ table 63701 "BT Bonus Header"
             Clustered = true;
         }
     }
+
+    var
+        BonusSetup: Record "BT Bonus Setup";
+        NoSeriesMgmt: Codeunit NoSeriesManagement;
+
+    trigger OnInsert()
+    begin
+        if "No." = '' then begin
+            BonusSetup.Get();
+            BonusSetup.TestField("Bonus Nos.");
+            NoSeriesMgmt.InitSeries(BonusSetup."Bonus Nos.", xRec."No.", 0D, Rec."No.", Rec."No. Series");
+            //####################  BonusSetup Table,        old value,    , store here that new number,    which no series is used to generate this number       
+        end;
+    end;
 
 
 
