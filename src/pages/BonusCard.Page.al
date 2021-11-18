@@ -70,6 +70,21 @@ page 50102 "BT Bonus Card"
                 ToolTip = 'Opens customer Card';
 
             }
+
+            action(BonusEntries)
+            {
+                ApplicationArea = All;
+                Image = Entry;
+                Promoted = true;
+                PromotedCategory = Process;
+                RunObject = page "BT Bonus Entries";
+                RunPageLink = "Bonus No." = field("No.");
+                Caption = 'Bonus Entries';
+                ToolTip = 'Opens bonus entries.';
+
+            }
+
+
         }
     }
 

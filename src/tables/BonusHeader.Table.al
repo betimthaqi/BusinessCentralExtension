@@ -16,7 +16,7 @@ table 50100 "BT Bonus Header"
             begin
                 if "No." <> xRec."No." then begin
                     BonusSetup.Get();
-                    NoSeriesMgmt.TestManual(BonusSetup."Bonus Nos.");
+                    NoSeriesManagement.TestManual(BonusSetup."Bonus Nos.");
                     "No. Series" := '';
                 end;
             end;
@@ -66,14 +66,14 @@ table 50100 "BT Bonus Header"
 
     var
         BonusSetup: Record "BT Bonus Setup";
-        NoSeriesMgmt: Codeunit NoSeriesManagement;
+        NoSeriesManagement: Codeunit NoSeriesManagement;
 
     trigger OnInsert()
     begin
         if "No." = '' then begin
             BonusSetup.Get();
             BonusSetup.TestField("Bonus Nos.");
-            NoSeriesMgmt.InitSeries(BonusSetup."Bonus Nos.", xRec."No.", 0D, Rec."No.", Rec."No. Series");
+            NoSeriesManagement.InitSeries(BonusSetup."Bonus Nos.", xRec."No.", 0D, Rec."No.", Rec."No. Series");
             //####################  BonusSetup Table,        old value,    , store here that new number,    which no series is used to generate this number       
         end;
     end;
