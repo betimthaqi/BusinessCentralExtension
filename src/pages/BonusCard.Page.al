@@ -25,6 +25,12 @@ page 50102 "BT Bonus Card"
                     ToolTip = 'Specifies bonus customer number';
                 }
 
+                field("Customer Name"; Rec."Customer Name")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies bonus customer name';
+                }
+
                 field("Starting Date"; Rec."Starting Date")
                 {
                     ApplicationArea = All;
@@ -51,6 +57,17 @@ page 50102 "BT Bonus Card"
                 ApplicationArea = All;
                 SubPageLink = "Document No." = field("No.");
             }
+        }
+
+        area(FactBoxes)
+        {
+            part(BTBonusStatistic; "BT Bonus Statistic")
+            {
+                ApplicationArea = All;
+                SubPageLink = "No." = field("No.");
+                Caption = 'Statistic';
+            }
+
         }
     }
 

@@ -15,8 +15,8 @@ table 50100 "BT Bonus Header"
             trigger OnValidate()
             begin
                 if "No." <> xRec."No." then begin
-                    BonusSetup.Get();
-                    NoSeriesManagement.TestManual(BonusSetup."Bonus Nos.");
+                    BTBonusSetup.Get();
+                    NoSeriesManagement.TestManual(BTBonusSetup."Bonus Nos.");
                     "No. Series" := '';
                 end;
             end;
@@ -28,18 +28,33 @@ table 50100 "BT Bonus Header"
             DataClassification = CustomerContent;
             TableRelation = Customer;
             Caption = 'Customer No';
+            trigger OnValidate()
+            var
+            begin
+                TestStatusOpen();
+            end;
         }
 
         field(3; "Starting Date"; Date)
         {
             DataClassification = CustomerContent;
             Caption = 'Starting Date';
+            trigger OnValidate()
+            var
+            begin
+                TestStatusOpen();
+            end;
         }
 
         field(4; "Ending Date"; Date)
         {
             DataClassification = CustomerContent;
             Caption = 'Ending Date';
+            trigger OnValidate()
+            var
+            begin
+                TestStatusOpen();
+            end;
         }
 
         field(5; "Status"; Enum "BT Bonus Status")
@@ -53,6 +68,33 @@ table 50100 "BT Bonus Header"
             Caption = 'No. Series';
             Editable = false;
             TableRelation = "No. Series";
+            trigger OnValidate()
+            var
+            begin
+                TestStatusOpen();
+            end;
+        }
+
+        field(7; "Customer Name"; Text[100])
+        {
+            Caption = 'Customer Name';
+            FieldClass = FlowField;
+            Editable = false;
+            CalcFormula = lookup(Customer.Name where("No." = field("Customer No.")));
+            trigger OnValidate()
+            var
+            begin
+                TestStatusOpen();
+                CalcFields("Customer Name");
+            end;
+        }
+        field(8; "Bonus Amount"; Decimal)
+        {
+            FieldClass = FlowField;
+            Editable = false;
+            Caption = 'Bonus Amount';
+            CalcFormula = sum("BT Bonus Entry"."Bonus Amount" where("Bonus No." = field("No.")));
+
         }
     }
 
@@ -65,19 +107,23 @@ table 50100 "BT Bonus Header"
     }
 
     var
-        BonusSetup: Record "BT Bonus Setup";
+        BTBonusSetup: Record "BT Bonus Setup";
         NoSeriesManagement: Codeunit NoSeriesManagement;
 
     trigger OnInsert()
     begin
         if "No." = '' then begin
-            BonusSetup.Get();
-            BonusSetup.TestField("Bonus Nos.");
-            NoSeriesManagement.InitSeries(BonusSetup."Bonus Nos.", xRec."No.", 0D, Rec."No.", Rec."No. Series");
-            //####################  BonusSetup Table,        old value,    , store here that new number,    which no series is used to generate this number       
+            BTBonusSetup.Get();
+            BTBonusSetup.TestField("Bonus Nos.");
+            NoSeriesManagement.InitSeries(BTBonusSetup."Bonus Nos.", BTBonusSetup."Bonus Nos.", WorkDate(), "No.", BTBonusSetup."Bonus Nos.");
+
         end;
     end;
 
 
+    procedure TestStatusOpen()
+    begin
+        TestField(Status, Status::Open); // method for testing
+    end;
 
 }
